@@ -1495,7 +1495,7 @@ export class SpaceService {
   }
 
   getSpaceCategory(){
-    return this.http.get(environment.API_URL+`/api/v1/getAllActiveSpaceCategory`);
+    return this.http.get("https://apis.flexospaces.com"+`/api/v1/getAllActiveSpaceCategory`);
   }
 
   getCityInfo(lat, long): Observable<any> {
