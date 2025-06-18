@@ -19,46 +19,46 @@ export class SpaceService {
   get getFaqs(): any {
     return this.faqsSubject.value || [];
   }
-  private base_url = environment.apiUrl + `/api/v1/managers/`;
+  private base_url = environment.API_URL + `/api/v1/managers/`;
   private validateSessionUrl = this.base_url + 'validateSession';
-  private getAllCitiesUrl = environment.apiUrl + `/api/v1/getAllCities`;
+  private getAllCitiesUrl = environment.API_URL + `/api/v1/getAllCities`;
   getCityAndLocationInfo =
-    environment.apiUrl + `/api/v1/spaces/getCityAndLocationInfo`;
-  private voteDevoteEndPoint = environment.apiUrl + `/api/v1/spaces/vote`;
+    environment.API_URL + `/api/v1/spaces/getCityAndLocationInfo`;
+  private voteDevoteEndPoint = environment.API_URL + `/api/v1/spaces/vote`;
   
   private getSpacesByCityUrl =
-    environment.apiUrl + `/api/v1/spaces/getSpacesByCity`;
+    environment.API_URL + `/api/v1/spaces/getSpacesByCity`;
   private addBookingDetailsUrl =
-    environment.apiUrl + '/api/v1/common/addBookingAndSendInvoice';
+    environment.API_URL + '/api/v1/common/addBookingAndSendInvoice';
   private checkAvailabilityUrl =
-    environment.apiUrl + '/api/v1/common/check_availability';
+    environment.API_URL + '/api/v1/common/check_availability';
   private getSpaceConfigDetailsUrl =
-    environment.apiUrl + '/api/v1/app/user/spaceConfig';
-  private getInRadiusUrl = environment.apiUrl + '/api/v1/spaces/allInRadius';
-  private getSpaceDetailsUrl = environment.apiUrl + '/api/v1/spaces/details';
+    environment.API_URL + '/api/v1/app/user/spaceConfig';
+  private getInRadiusUrl = environment.API_URL + '/api/v1/spaces/allInRadius';
+  private getSpaceDetailsUrl = environment.API_URL + '/api/v1/spaces/details';
   private getAllTrendingUrl =
-    environment.apiUrl + '/api/v1/spaces/getAllTrending';
-  private getAllSitemapsUrl = environment.apiUrl + `/api/v1/get_sitemaps`;
+    environment.API_URL + '/api/v1/spaces/getAllTrending';
+  private getAllSitemapsUrl = environment.API_URL + `/api/v1/get_sitemaps`;
   private getShortlistSpacesUrl =
-    environment.apiUrl + `/api/v1/spaces/getShortlistSpaces`;
+    environment.API_URL + `/api/v1/spaces/getShortlistSpaces`;
 
   private fetchNearbySpaces =
-    environment.apiUrl + `/api/v1/spaces/fetchNearbySpaces`;
+    environment.API_URL + `/api/v1/spaces/fetchNearbySpaces`;
 
   getQuestionByRadiusUrl =
-    environment.apiUrl + `/api/v1/faqs/getQuestionByRadius`;
+    environment.API_URL + `/api/v1/faqs/getQuestionByRadius`;
 
-  private getAmenitiesURL = environment.apiUrl + '/api/v1/user/getAllAmenities';
+  private getAmenitiesURL = environment.API_URL + '/api/v1/user/getAllAmenities';
 
-  private urlRejectBookinonPaymentExpiry = environment.apiUrl + '/api/v1/user/rejectBookingOnPaymentExpiry';
-  private userBookingUrl = environment.apiUrl + '/api/v1/user/cancelBooking';
+  private urlRejectBookinonPaymentExpiry = environment.API_URL + '/api/v1/user/rejectBookingOnPaymentExpiry';
+  private userBookingUrl = environment.API_URL + '/api/v1/user/cancelBooking';
 
-  getLocationUrl = environment.apiUrl + '/api/v1/user/getAllLocations';
-	shortDetailsUrl = environment.apiUrl + '/api/v1/spaces/getSpaceDetails/';
+  getLocationUrl = environment.API_URL + '/api/v1/user/getAllLocations';
+	shortDetailsUrl = environment.API_URL + '/api/v1/spaces/getSpaceDetails/';
 
   getQuestionByLocationNameUrl =
-    environment.apiUrl + `/api/v1/faqs/getQuestionByLocationName`;
-  getFaqsBySpaceIdUrl = environment.apiUrl + `/api/v1/faqs/getFaqsBySpaceId`;
+    environment.API_URL + `/api/v1/faqs/getQuestionByLocationName`;
+  getFaqsBySpaceIdUrl = environment.API_URL + `/api/v1/faqs/getFaqsBySpaceId`;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   private filteredSpacesByLocation = new Subject<any>();
@@ -1461,7 +1461,7 @@ export class SpaceService {
   }
   getNearBySpaces(data:any): Observable<any> {
     return this.http.post(
-      environment.apiUrl + '/api/v1/spaces/getNearBySpacesByCityId',data,
+      environment.API_URL + '/api/v1/spaces/getNearBySpacesByCityId',data,
       {
         headers: this.headers,
       }
@@ -1476,26 +1476,26 @@ export class SpaceService {
 
     params
     if (data.bookingType == 'upcomingBooking') {
-      return this.http.get(environment.apiUrl+`/api/v1/user/upcomingBookings?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
+      return this.http.get(environment.API_URL+`/api/v1/user/upcomingBookings?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
     } else if (data.bookingType == 'pastBooking') {
-      return this.http.get(environment.apiUrl+`/api/v1/user/previousBookings?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
+      return this.http.get(environment.API_URL+`/api/v1/user/previousBookings?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
     } else {
-      return this.http.get(environment.apiUrl+`/api/v1/user/user-booking-history?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
+      return this.http.get(environment.API_URL+`/api/v1/user/user-booking-history?userId=${data?.userId}${params}`,{ headers: this.appGlobals.setHeaders()});
     }
     
      
   }
   getBookingDetailById(data): Observable<any> {
     // fixme: need api end point
-      return this.http.get(environment.apiUrl+`/api/v1/user/user-single-booking/${data}`,{ headers: this.appGlobals.setHeaders()});
+      return this.http.get(environment.API_URL+`/api/v1/user/user-single-booking/${data}`,{ headers: this.appGlobals.setHeaders()});
   }
 
   getUserInvoice(bookingID){
-    return this.http.get(environment.apiUrl+`/api/v1/user/downloadBookingInvoice/${bookingID}`,{ headers: this.appGlobals.setHeaders()});
+    return this.http.get(environment.API_URL+`/api/v1/user/downloadBookingInvoice/${bookingID}`,{ headers: this.appGlobals.setHeaders()});
   }
 
   getSpaceCategory(){
-    return this.http.get(environment.apiUrl+`/api/v1/getAllActiveSpaceCategory`);
+    return this.http.get(environment.API_URL+`/api/v1/getAllActiveSpaceCategory`);
   }
 
   getCityInfo(lat, long): Observable<any> {
@@ -1542,81 +1542,81 @@ export class SpaceService {
   }
 
   addRatingReview(payload, space_id){
-    return this.http.post(`${environment.apiUrl}/api/v1/ratings/rate/${space_id}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/ratings/rate/${space_id}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   updateRatingReview(rating_id, payload, space_id){
-    return this.http.post(`${environment.apiUrl}/api/v1/ratings/updateUserRating/${rating_id}/${space_id}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/ratings/updateUserRating/${rating_id}/${space_id}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   getSpaceRatingReviewDetails(id, filter = 'topRating'){
-    return this.http.get(`${environment.apiUrl}/api/v1/ratings/reviews/${id}?sortBy=${filter}`);
+    return this.http.get(`${environment.API_URL}/api/v1/ratings/reviews/${id}?sortBy=${filter}`);
   }
   getSpaceRatingReviewDetailsWithSortPagination(id, filter = 'topRating', page = 1, pageSize = 10, starBy = ''){
-    return this.http.get(`${environment.apiUrl}/api/v1/ratings/reviews/sort/${id}?sortBy=${filter}&page=${page}&pageSize=${pageSize}&ratingFilter=${starBy}`);
+    return this.http.get(`${environment.API_URL}/api/v1/ratings/reviews/sort/${id}?sortBy=${filter}&page=${page}&pageSize=${pageSize}&ratingFilter=${starBy}`);
   }
   getSpaceRatingReviewDetailsByUser(){
-    return this.http.get(`${environment.apiUrl}/api/v1/ratings/reviews/`, { headers: this.appGlobals.setHeaders()});
+    return this.http.get(`${environment.API_URL}/api/v1/ratings/reviews/`, { headers: this.appGlobals.setHeaders()});
   }
 
   userScheduleVisit(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/scheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/scheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   userShortTermScheduleVisit(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/shortTermScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/shortTermScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   userLongTermScheduleVisit(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/longTermScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/longTermScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   userUpdateScheduleVisit(visitId, payload){
-    return this.http.put(`${environment.apiUrl}/api/v1/user/updateVisit/${visitId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.put(`${environment.API_URL}/api/v1/user/updateVisit/${visitId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   userRequestBookingShort(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/shortTermCreateBooking/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/shortTermCreateBooking/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   addReview(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/ratings/rate/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/ratings/rate/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   userDayPassCoworking(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/coworkingCreateBooking/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/coworkingCreateBooking/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   completeCoworkingPayment(payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/payment-status`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/payment-status`, payload, { headers: this.appGlobals.setHeaders()});
   }
   completeShortTermLaterPayment(payload){
     // fixme:Need api end point change
-    return this.http.post(`${environment.apiUrl}/api/v1/user/payment-status`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/payment-status`, payload, { headers: this.appGlobals.setHeaders()});
   }
   completeShortPayment(payload) {
-    return this.http.post(`${environment.apiUrl}/api/v1/user/shortTermBookingPayment/${payload}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/shortTermBookingPayment/${payload}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   getUserScheduleVisitList(){
-    return this.http.get(`${environment.apiUrl}/api/v1/user/getVisit/`, { headers: this.appGlobals.setHeaders()});
+    return this.http.get(`${environment.API_URL}/api/v1/user/getVisit/`, { headers: this.appGlobals.setHeaders()});
   }
   cancelScheduledVisit(visitId){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/cancelVisit/${visitId}`, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/cancelVisit/${visitId}`, { headers: this.appGlobals.setHeaders()});
   }
   
   getBookingRequestInquiriesList(){
-    return this.http.get(`${environment.apiUrl}/api/v1/user/viewInquiry/`, { headers: this.appGlobals.setHeaders()});
+    return this.http.get(`${environment.API_URL}/api/v1/user/viewInquiry/`, { headers: this.appGlobals.setHeaders()});
   }
   
   sentInquiry(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/inquiry/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/inquiry/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   cancelInquiry(spaceId,inquiryId){
-    return this.http.delete(`${environment.apiUrl}/api/v1/user/cancelInquiry/${spaceId}/${inquiryId}`, { headers: this.appGlobals.setHeaders()});
+    return this.http.delete(`${environment.API_URL}/api/v1/user/cancelInquiry/${spaceId}/${inquiryId}`, { headers: this.appGlobals.setHeaders()});
   }
   updateInquiry(inquiryId, spaceId, payload){
-    return this.http.patch(`${environment.apiUrl}/api/v1/user/manageInquiry/${inquiryId}/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.patch(`${environment.API_URL}/api/v1/user/manageInquiry/${inquiryId}/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
   setShowSchedule(value: boolean) {
     this.showScheduleSubject.next(value);
   }
   userCoworkingVisitSchdule(spaceId, payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/coworkingScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
+    return this.http.post(`${environment.API_URL}/api/v1/user/coworkingScheduleVisit/${spaceId}`, payload, { headers: this.appGlobals.setHeaders()});
   }
 
   inquiryBooking(payload){
-    return this.http.post(`${environment.apiUrl}/api/v1/user/inquiry`,payload);
+    return this.http.post(`${environment.API_URL}/api/v1/user/inquiry`,payload);
   }
  
   getAllAmenities(){

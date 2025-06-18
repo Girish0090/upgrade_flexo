@@ -25,17 +25,17 @@ export class MeetingRoomService {
 
   private base_url = 'api/v1/common/meetingRoom';
   private common_base_url = 'api/v1/common';
-  private getAllResourcesUrl = environment.apiUrl + this.base_url +'/list';
-  private getAllLocationsUrl = environment.apiUrl + this.base_url +'/locations';
-  private getAllSlotsUrl = environment.apiUrl + this.base_url +'/bookings';
-  private getAllBookingsUrl = environment.apiUrl + this.base_url +'/bookingsByMember';
-  private getAllBookingsByResourceIdUrl = environment.apiUrl + this.base_url +'/bookingsByResourceId';
-  private updateBookingDetailsUrl = environment.apiUrl + this.base_url +'/updateBooking';
-  private addBookingDetailsUrl = environment.apiUrl +'api/v1/bookings/addWorkStationAndTeamCabin';
-  private addDayPassUrl = environment.apiUrl +'api/v1/bookings/addDayPass';
-  private getPlansUrl = environment.apiUrl +'api/v1/bookings/getAllPlans';
-  private buyPlanUrl = environment.apiUrl +'api/v1/bookings/buyPlan';
-  private addMeetingRoomBookingDetailsUrl = environment.apiUrl + this.base_url +'/addBookingAndSendInvoice';
+  private getAllResourcesUrl = environment.API_URL + this.base_url +'/list';
+  private getAllLocationsUrl = environment.API_URL + this.base_url +'/locations';
+  private getAllSlotsUrl = environment.API_URL + this.base_url +'/bookings';
+  private getAllBookingsUrl = environment.API_URL + this.base_url +'/bookingsByMember';
+  private getAllBookingsByResourceIdUrl = environment.API_URL + this.base_url +'/bookingsByResourceId';
+  private updateBookingDetailsUrl = environment.API_URL + this.base_url +'/updateBooking';
+  private addBookingDetailsUrl = environment.API_URL +'api/v1/bookings/addWorkStationAndTeamCabin';
+  private addDayPassUrl = environment.API_URL +'api/v1/bookings/addDayPass';
+  private getPlansUrl = environment.API_URL +'api/v1/bookings/getAllPlans';
+  private buyPlanUrl = environment.API_URL +'api/v1/bookings/buyPlan';
+  private addMeetingRoomBookingDetailsUrl = environment.API_URL + this.base_url +'/addBookingAndSendInvoice';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });

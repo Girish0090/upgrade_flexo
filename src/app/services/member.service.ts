@@ -23,39 +23,39 @@ export class MemberService {
 
   private base_url = '/api/v1/common/member';
   private common_base_url = '/api/v1/common';
-  private addDetailsUrl = environment.apiUrl + '/api/v1/createWorker';
-  private addDetailsManagerUrl = environment.apiUrl + '/api/v1/createManager';
+  private addDetailsUrl = environment.API_URL + '/api/v1/createWorker';
+  private addDetailsManagerUrl = environment.API_URL + '/api/v1/createManager';
   private getBillingDetailsUrl =
-    environment.apiUrl + this.base_url + '/billing_details';
+    environment.API_URL + this.base_url + '/billing_details';
   private updateDetailsUrl =
-    environment.apiUrl + this.common_base_url + '/updateMemberDetails';
+    environment.API_URL + this.common_base_url + '/updateMemberDetails';
   private verifyOTPAndSearchUrl =
-    environment.apiUrl + '/api/v1/verifyOTPAndSearch';
+    environment.API_URL + '/api/v1/verifyOTPAndSearch';
   private verifyOTPAndSearchManagerUrl =
-    environment.apiUrl + '/api/v1/verifyOTPAndSearchManager';
-  private sendOTPUrl = environment.apiUrl + '/api/v1/user/sendOTP';
-  private verifyOTPUrl = environment.apiUrl + '/api/v1/user/verifyOTP';
-  private queryUrl = environment.apiUrl + '/api/v1/queries/add';
-  private workerDetailsUrl = environment.apiUrl + '/api/v1/worker/getDetails';
-  private updateWorkerUrl = environment.apiUrl + '/api/v1/worker/update_info';
+    environment.API_URL + '/api/v1/verifyOTPAndSearchManager';
+  private sendOTPUrl = environment.API_URL + '/api/v1/user/sendOTP';
+  private verifyOTPUrl = environment.API_URL + '/api/v1/user/verifyOTP';
+  private queryUrl = environment.API_URL + '/api/v1/queries/add';
+  private workerDetailsUrl = environment.API_URL + '/api/v1/worker/getDetails';
+  private updateWorkerUrl = environment.API_URL + '/api/v1/worker/update_info';
   private forgotPasswordUrl =
-    environment.apiUrl + '/api/v1/user/workerForgotPassword';
-  private loginUrl = environment.apiUrl + '/api/v1/user/login';
-  private addWorkerUrl = environment.apiUrl + '/api/v1/user/addWorker';
-  private SigninUrl = environment.apiUrl + '/api/v1/user/signup';
-  private getBasicInfoUrl = environment.apiUrl + '/api/v1/worker/basic_info';
+    environment.API_URL + '/api/v1/user/workerForgotPassword';
+  private loginUrl = environment.API_URL + '/api/v1/user/login';
+  private addWorkerUrl = environment.API_URL + '/api/v1/user/addWorker';
+  private SigninUrl = environment.API_URL + '/api/v1/user/signup';
+  private getBasicInfoUrl = environment.API_URL + '/api/v1/worker/basic_info';
   private updateShortlistsUrl =
-    environment.apiUrl + '/api/v1/worker/updateShortlists';
+    environment.API_URL + '/api/v1/worker/updateShortlists';
   private updateWorkerPasswordUrl =
-    environment.apiUrl + '/api/v1/user/updateWorkerPassword';
+    environment.API_URL + '/api/v1/user/updateWorkerPassword';
   private submitContactFormUrl =
-    environment.apiUrl + '/api/v1/worker/contactForm';
+    environment.API_URL + '/api/v1/worker/contactForm';
   private checkTeamcabinBookingUrl =
-    environment.apiUrl + '/api/v1/bookings/checkTeamcabinBooking';
-  private qouteAttempted = environment.apiUrl + '/api/v1/user/qouteAttempted';
-  private markAsVerifiedUrl = environment.apiUrl + '/api/v1/user/markAsVerified';
+    environment.API_URL + '/api/v1/bookings/checkTeamcabinBooking';
+  private qouteAttempted = environment.API_URL + '/api/v1/user/qouteAttempted';
+  private markAsVerifiedUrl = environment.API_URL + '/api/v1/user/markAsVerified';
   private markAsNotVerifiedUrl =
-    environment.apiUrl + '/api/v1/user/markAsNotVerified';
+    environment.API_URL + '/api/v1/user/markAsNotVerified';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': localStorage.getItem('authToken')

@@ -17,8 +17,8 @@ export class WorkstationService {
 
   private base_url = 'api/v1/common/workstation';
   private common_base_url = 'api/v1/common';
-  private getAllResourcesUrl = environment.apiUrl + this.base_url +'/list';
-  private addBookingDetailsUrl = environment.apiUrl + this.base_url +'/addBooking';
+  private getAllResourcesUrl = environment.API_URL + this.base_url +'/list';
+  private addBookingDetailsUrl = environment.API_URL + this.base_url +'/addBooking';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });

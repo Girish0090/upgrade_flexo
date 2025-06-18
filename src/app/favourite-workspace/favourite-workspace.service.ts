@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class FavouriteWorkSpaceService {
-    apiUri: string = environment.apiUrl;
+    apiUri: string = environment.API_URL;
     constructor(private http: HttpClient, private appGlobals: AppGlobals) {}
 
     getFavoriteList() {

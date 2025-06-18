@@ -94,7 +94,7 @@ export class BookingDetailComponent implements OnInit {
   getUserInvoiceByBookingId(bookingID: any) {
     this._spaceService.getUserInvoice(bookingID).subscribe((res: any) => {
       if (res.success) {
-        window.open(environment.apiUrl + '/' + res.pdfFilePath, '_blank');
+        window.open(environment.API_URL + '/' + res.pdfFilePath, '_blank');
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);

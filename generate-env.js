@@ -11,7 +11,7 @@ console.log(env);
 const environmentContent = `
 export const environment = {
   production: ${env.PRODUCTION === 'true'},
-  apiUrl: "${env.API_URL}",
+  API_URL: "${env.API_URL}",
   s3_bucket_path: "${env.S3_BUCKET_PATH}",
   mapKey: "${env.MAP_KEY}",
   webDomain: "${env.WEB_DOMAIN || ''}",

@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
- //apiUrl: 'http://localhost:3009/',
-  apiUrl: 'http://13.235.251.69:5401',
-  // apiUrl: 'https://apis.flexospaces.com/',
+ //API_URL: 'http://localhost:3009/',
+  API_URL: 'http://13.235.251.69:5401',
+  // API_URL: 'https://apis.flexospaces.com/',
   angularUrl: `http://localhost:4200/`,
   s3_bucket_path: 'worker-app',
   webDomain: 'https://www.flexospaces.com/',

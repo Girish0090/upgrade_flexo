@@ -211,7 +211,7 @@ export class BookingListComponent implements OnInit {
     this._spaceService.getUserInvoice(bookingID).subscribe((res:any)=>{
       if(res.success){
         if (isPlatformBrowser(this.platformId)) {
-        window.open(environment.apiUrl+'/'+res.pdfFilePath, '_blank');
+        window.open(environment.API_URL+'/'+res.pdfFilePath, '_blank');
         this.toastr.success(res.message);
         }
       }else{

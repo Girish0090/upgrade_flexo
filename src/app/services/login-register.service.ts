@@ -7,7 +7,7 @@ import { AppGlobals } from './app-globals';
   providedIn: 'root',
 })
 export class LoginRegisterService {
-  apiUri: string = environment.apiUrl;
+  apiUri: string = environment.API_URL;
 
   constructor(private http: HttpClient, private appGlobals: AppGlobals) {}
 

@@ -7,10 +7,10 @@ import { HttpClient } from "@angular/common/http";
     providedIn: 'root',
   })
 export class ProfileManagementService {
-    apiUri: string = environment.apiUrl;
-    private getAllCountries = environment.apiUrl + "/api/v1/user/getAllCountries";
-    private getAllStates = environment.apiUrl + "/api/v1/user/getAllStatesById";
-    private getAllCity = environment.apiUrl + "/api/v1/user//getAllCities";
+    apiUri: string = environment.API_URL;
+    private getAllCountries = environment.API_URL + "/api/v1/user/getAllCountries";
+    private getAllStates = environment.API_URL + "/api/v1/user/getAllStatesById";
+    private getAllCity = environment.API_URL + "/api/v1/user//getAllCities";
 
     
 

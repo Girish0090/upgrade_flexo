@@ -756,7 +756,7 @@ export class LoginDialog implements OnInit {
     this.userForgotForm.reset();
 
     if (this.selectedLoginType === LoginTypeEnum.Google) {
-      // window.open(`${environment.apiUrl}/auth/google`, '_blank')
+      // window.open(`${environment.API_URL}/auth/google`, '_blank')
       // window.open('http://localhost:3009/auth/google', '_blank')
       this.loginRegisterService.loginWithGoogle().subscribe((res) => {
       });
