@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  API_URL: "http://13.235.251.69:5401",
+  API_URL: "https://apis.flexospaces.com/",
   s3_bucket_path: "worker-app",
   mapKey: "AIzaSyCOAhd885zH5TvinKCm3-rhDvgndqzoQyU",
   webDomain: "",
