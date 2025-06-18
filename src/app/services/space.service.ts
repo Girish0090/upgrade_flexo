@@ -1461,7 +1461,7 @@ export class SpaceService {
   }
   getNearBySpaces(data:any): Observable<any> {
     return this.http.post(
-      environment.API_URL + '/api/v1/spaces/getNearBySpacesByCityId',data,
+      "https://apis.flexospaces.com" + '/api/v1/spaces/getNearBySpacesByCityId',data,
       {
         headers: this.headers,
       }
