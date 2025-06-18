@@ -1,0 +1,1243 @@
+<div class="hero hero_sec">
+  <div class="backgrounds animateIMG">
+    <div class="homeInnerSwiper" *ngFor="let background of backgrounds; let i = index; trackBy: trackByBackground"
+      [class.active]="i === currentImageIndex">
+      <img [attr.fetchpriority]="i === 0 ? 'high' : 'low'" [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+        [attr.decoding]="i === 0 ? 'auto' : null" [src]="background" alt="Slide Image" title="Slide Image"
+        class="h-100 w-100" width="1526" height="613" />
+    </div>
+  </div>
+  <div class="hero-slide">
+    <div class="hero-content d-flex w-100 align-items-center container">
+      <div class="col-md-12 px-0 mb_hero">
+        <div class="row mb_row">
+          <div class="col-12 mb_text_content">
+            <h1 class="hero-title v2 ml-0">
+              Discover Amazing
+              <div class="text animateIMG">
+                <span *ngFor="let text of texts; let i = index; trackBy: trackByText"
+                  [class.fade-out]="i === currentImageIndex && isTextFadingOut"
+                  [class.active]="i === currentTextIndex && !isTextFadingOut">
+                  {{ text }}
+                </span>
+              </div>
+            </h1>
+          </div>
+          <div class="col-lg-10 col-md-12 col-12 mt-md-4 mt-0 mb_input_box">
+            <form class="hero__form v2">
+              <div class="row align-items-center mx-0 bg_face">
+                <div class="col-lg-7 col-md-8 col-12 row m-0 hero_input_box p-0" style="justify-content: space-evenly;">
+                  <div class="p-0 col-md-6 col-12 border-l-r mb-md-0 mb-3">
+                    <ng-select placeholder="What are you looking for?" (change)="getVal($event)">
+                      <ng-option *ngFor="let item of spaces; trackBy: trackBySpace" [value]="item.spaceType">
+                        {{item?.spaceType}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="col-md-6 px-md-0 px-2 mb-md-0 mb-3" style="align-self: center;">
+                    <div class="position-relative location_form">
+                      <input class="hero__form-input custom-select" type="text" name="place-event" id="key-word"
+                        (input)="onInputChange($event.target.value)" style="font-family: Poppins, FontAwesome;"
+                        placeholder="Where?" [formControl]="control" [matAutocomplete]="auto" />
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getLocationValue($event)">
+                        <ng-container *ngIf="filteredPlaces?.length">
+                          <mat-option *ngFor="let val of filteredPlaces; trackBy: trackByLocation" [value]="val">
+                            {{val}}
+                          </mat-option>
+                        </ng-container>
+                        <ng-container *ngIf="!filteredPlaces?.length">
+                          <mat-option>
+                            Location not found
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-auto col-12 px-md-3 px-0">
+                  <a (click)="onSearchSubmit()" class="col-12 cursor-pointer text-center">Search
+                  </a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid trusted_logos section-padding pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2 class="section-title v1">Trusted By Leading Companies in India</h2>
+      </div>
+    </div>
+    <div class="col-12">
+      <ngx-slick-carousel class="carousel" #companyModal="slick-carousel" [config]="companyConfig">
+        <div ngxSlickItem class="swiper-slide popular-item slide"
+          *ngFor="let logo of companyLogos; trackBy: trackByLogo">
+          <div class="">
+            <img loading="lazy" fetchpriority="low" [src]="logo.src" width="145" height="145" [alt]="logo.alt"
+              [title]="logo.alt" class="ratio-1x1" />
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid cities_sec section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="section-title v1">Explore India's Premier Network of <span class="main_color">Coworking Spaces</span>
+        </h2>
+      </div>
+    </div>
+    <div class="row h-100">
+      <div class="col-lg-4 col-md-5 col-12 px-md-1 mb-md-0 mb-1">
+        <a style="cursor: pointer;" (click)="navigateToCity('Mumbai','Mumbai, maharashtra, India (City)')">
+          <div class="city-img-box city_main_img position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Mumbai.webp"
+              class="w-100 img-fluid" width="419" height="405" alt="Mumbai" title="Mumbai" />
+            <div class="city_txt">
+              <h3 class="text-white m-0">Mumbai</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-8 col-md-7 col-12 px-md-0">
+        <ngx-slick-carousel class="carousel city_carousel px-0" #citySlickSlider="slick-carousel" [config]="cityConfig"
+          responsive="breakpoints">
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Bangalore','Bangalore (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Bengaluru.webp"
+                      width="281" height="200" class="w-100 img-fluid" alt="Bengaluru" title="Bengaluru" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Bengaluru</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Hyderabad','Hyderabad (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Hyderabad.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Hyderabad" title="Hyderabad" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Hyderabad</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Pune','Pune (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Pune.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Pune" title="Pune" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Pune</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Delhi','Delhi (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Delhi.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Delhi" title="Delhi" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Delhi</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Gurgaon','Gurgaon (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Gurgaon.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Gurgaon" title="Gurgaon" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Gurgaon</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Noida','Noida (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Noida.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Noida" title="Noida" />
+                    <div class="city_txt">
+
+                      <h3 class="text-white m-0">Noida</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Chennai','Chennai (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Chennai.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Chennai" title="Chennai" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Chennai</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Ahmedabad','Ahmedabad (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Ahmedabad.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Ahmedabad" title="Ahmedabad" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Ahmedabad</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Jaipur','Jaipur (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Jaipur.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Jaipur" title="Jaipur" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Jaipur</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Coimbatore','Coimbatore (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Coimbatore.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Coimbatore" title="Coimbatore" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Coimbatore</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Kochi','Kochi (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Kochi.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Kochi" title="Kochi" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Kochi</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Indore','Indore (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Indore.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Indore" title="Indore" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Indore</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Lucknow','Lucknow (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Lucknow.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Lucknow" title="Lucknow" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Lucknow</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Chandigarh','Chandigarh (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Chandigarh.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Chandigarh" title="Chandigarh" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Chandigarh</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="row">
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Goa','Goa (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Goa.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Goa" title="Goa" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Goa</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-12 mb-1 px-2">
+                <a style="cursor: pointer;" (click)="navigateToCity('Surat','Surat (City)')">
+                  <div class="city-img-box position-relative">
+                    <img loading="lazy" fetchpriority="low"
+                      src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/city-slide-images/Surat.webp"
+                      class="w-100 img-fluid" width="281" height="200" alt="Surat" title="Surat" />
+                    <div class="city_txt">
+                      <h3 class="text-white m-0">Surat</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid work-space-option section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-9 col-12 text-center mb-4">
+        <h2 class="section-title v1">With <span class="main_color">1800+</span> Workspace Options, We have the Right
+          Space for Every Team</h2>
+      </div>
+    </div>
+    <div class="">
+      <ngx-slick-carousel class="carousel workspace_carousel p-0" #workSpaceSlider="slick-carousel"
+        [config]="workSpaceConfig" responsive="breakpoints">
+        <div ngxSlickItem class="swiper-slide popular-item slide">
+          <div class="workspace_box position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/private-cabins.webp"
+              class="img-fluid w-100" alt="private cabins" title="private cabins" width="303" height="400" />
+            <div class="workSpace_content">
+              <div class="work_space_head pb-1">
+                <h5 class="m-0 text-white">Private Cabins</h5>
+              </div>
+              <div class="workspace_txt d-flex align-items-center justify-content-between pt-1">
+                <div class="working-space-cal-single-txt-price-amount">
+                  <h6 class="m-0"> For Team Size </h6>
+                  <p class="text-white">3 to 50</p>
+                </div>
+                <a href="javascript:void(0);" class="btn_flex">
+                  Explore <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="swiper-slide popular-item slide">
+          <div class="workspace_box position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/private-offices.webp"
+              class="img-fluid w-100" alt="Private Offices" title="Private Offices" width="303" height="400" />
+
+            <div class="workSpace_content">
+              <div class="work_space_head pb-1">
+                <h5 class="m-0 text-white">Private Offices</h5>
+              </div>
+              <div class="workspace_txt d-flex align-items-center justify-content-between pt-1">
+                <div class="working-space-cal-single-txt-price-amount">
+                  <h6 class="m-0"> For Team Size </h6>
+                  <p class="text-white">15 to 500</p>
+                </div>
+                <a href="javascript:void(0);" class="btn_flex">
+                  Explore <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="swiper-slide popular-item slide">
+          <div class="workspace_box position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/managed-offices.webp"
+              class="img-fluid w-100" alt="Managed Offices" title="Managed Offices" width="303" height="400" />
+
+            <div class="workSpace_content">
+              <div class="work_space_head pb-1">
+                <h5 class="m-0 text-white">Managed Offices</h5>
+              </div>
+              <div class="workspace_txt d-flex align-items-center justify-content-between pt-1">
+                <div class="working-space-cal-single-txt-price-amount">
+                  <h6 class="m-0"> For Team Size </h6>
+                  <p class="text-white">25 to 1000+</p>
+                </div>
+                <a href="javascript:void(0);" class="btn_flex">
+                  Explore <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="swiper-slide popular-item slide">
+          <div class="workspace_box position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/built-to-suit.webp"
+              class="img-fluid w-100" alt="Built to Suit" title="Built to Suit" width="303" height="400" />
+            <div class="workSpace_content">
+              <div class="work_space_head pb-1">
+                <h5 class="m-0 text-white">Built to Suit</h5>
+              </div>
+              <div class="workspace_txt d-flex align-items-center justify-content-between pt-1">
+                <div class="working-space-cal-single-txt-price-amount">
+                  <h6 class="m-0"> For Team Size </h6>
+                  <p class="text-white">25 to 1000+</p>
+                </div>
+                <a href="javascript:void(0);" class="btn_flex">
+                  Explore <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ngxSlickItem class="swiper-slide popular-item slide">
+          <div class="workspace_box position-relative">
+            <img loading="lazy" fetchpriority="low"
+              src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/desk-spaces.webp" class="img-fluid w-100"
+              alt="Desk spaces" title="Desk spaces" width="303" height="400" />
+            <div class="workSpace_content">
+              <div class="work_space_head pb-1">
+                <h5 class="m-0 text-white">Desk spaces</h5>
+              </div>
+              <div class="workspace_txt d-flex align-items-center justify-content-between pt-1">
+                <div class="working-space-cal-single-txt-price-amount">
+                  <h6 class="m-0"> For Team Size </h6>
+                  <p class="text-white">1 to 50</p>
+                </div>
+                <a href="javascript:void(0);" class="btn_flex">
+                  Explore <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid cowrking_brands section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="section-title v1">Top Coworking Brands, All in One Place</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-12">
+        <ngx-slick-carousel class="carousel cowork_carousel" #coworkBrandSlider="slick-carousel" [config]="brandConfig">
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-1.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="WeWork logo" title="WeWork logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-2.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="awfis logo" title="awfis logo" />
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-3.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="springBoard logo" title="springBoard logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-4.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="smartWork logo" title="smartWork logo" />
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-5.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="indiqube logo" title="indiqube logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-6.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="regus logo" title="regus logo" />
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-7.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="behive logo" title="behive logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/brand-logo-8.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="coworking logo" title="coworking logo" />
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/CoWrksLogo2022.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="coworks logo" title="coworks logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/efc-logo-1.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="efc logo" title="efc logo" />
+            </div>
+          </div>
+          <div ngxSlickItem class="swiper-slide popular-item slide">
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/IncuspazeLogo.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="incuspaze logo" title="incuspaze logo" />
+            </div>
+            <div class="cowork_brand_box position-relative py-md-4 py-3 px-md-5 px-4 text-center mt-2">
+              <img loading="lazy" fetchpriority="low"
+                src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/brand-logo/Tablespace-New-Logo.webp"
+                class="w-100 img-fluid" width="185" height="40" alt="tableSpace logo" title="tableSpace logo" />
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid workspace_steps section-padding">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 col-12">
+        <h2 class="section-title" style="font-weight: 500;">Find and <span class="main_color">Book</span> Your Perfect
+          Workspace in 4 Easy Steps</h2>
+        <div class="space_list mt-3">
+          <div class="list_items position-relative px-4 py-3 mb-2">
+            <div><span class="space_count">1</span></div>
+            <h6 class="m-0">Share Your Requirements</h6>
+            <p>Tell us your needs and a dedicated advisor will handle the rest.</p>
+          </div>
+          <div class="list_items position-relative px-4 py-3 mb-2">
+            <div><span class="space_count">2</span></div>
+            <h6 class="m-0">Get Space Options and Personalised Tours</h6>
+            <p>Shortlist and take guided tours of your favorite options.</p>
+          </div>
+          <div class="list_items position-relative px-4 py-3 mb-2">
+            <div><span class="space_count">3</span></div>
+            <h6 class="m-0">We Negotiate, You Save</h6>
+            <p>We leverage our relationships to help you secure the best terms.</p>
+          </div>
+          <div class="list_items position-relative px-4 py-3">
+            <div><span class="space_count">4</span></div>
+            <h6 class="m-0">Move-In Quickly and Get To Work</h6>
+            <p>Finalize the agreement and move-in, hassle-free.</p>
+          </div>
+        </div>
+        <div class="mt-3">
+          <button (click)="loadZohoScript2()" class="btn btn_hover w-100">Connect with a Workspace Expert Today</button>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-12 mt-lg-0 mt-md-4 mt-4">
+        <div class="workspace_img">
+          <img loading="lazy" fetchpriority="low"
+            src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/find-work-space-1.webp"
+            style="height: 544px; border-radius: 7px;object-fit: cover;" alt="Your Perfect Workspace"
+            title="Your Perfect Workspace" class="w-100 img-fluid" width="610" height="544" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid count_sec section-padding bg-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="section-title v1">India's Premier Marketplace for <span class="main_color">Flexible Workspaces</span>
+        </h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-12 col-12">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+            <div class="count_box text-center">
+              <h2 class="main_color custom-lh mb-1">1800+</h2>
+              <h5 class="custom-lh m-0">Partner Spaces</h5>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+            <div class="count_box text-center">
+              <h2 class="main_color custom-lh mb-1">1000+</h2>
+              <h5 class="custom-lh m-0">Clients Served</h5>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <div class="count_box text-center">
+              <h2 class="main_color custom-lh mb-1">20+</h2>
+              <h5 class="custom-lh m-0">Cities Across India</h5>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <div class="count_box text-center">
+              <h2 class="main_color custom-lh mb-1">25 million+</h2>
+              <h5 class=" custom-lh  m-0">Sqft of Office Space Options</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid why_choose section-padding position-relative">
+  <img fetchpriority="low" loading="lazy" class="inset-0 whyChooseImg position-absolute h-100 w-100 object-cover"
+    src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/why-choose-flexo.webp" width="1526" height="539"
+    alt="Why choose Flexo ?" title="Why choose Flexo ?" />
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 col-12">
+        <h2 class="section-title mb-1 text-white" style="font-weight: 500;">Why choose <span class="main_color">Flexo
+            ?</span></h2>
+        <p class="text-white">We make your office-search, a hassle-less experience. With an in depth knowledge, let our
+          workspace solution
+          experts find what you're looking for.</p>
+        <div class="flex_btn mt-3">
+          <a href="" class="btn" style="white-space: normal;"> Claim Your Free Consultation with Zero Brokerage Offer
+            Now! <span><app-icon name="rightLongArrow" class="w-4 text-orange-400"></app-icon></span>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-12 mt-lg-0 mt-md-4 mt-4">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12 mb-4">
+            <div class="choose_sec h-100">
+              <div class="whychos_box text-center position-relative p-4">
+                <div class="choose_icon mb-2">
+                  <app-icon name="shareYourRequirements" class="w-14 text-white"></app-icon>
+                </div>
+                <h6 class="m-0">Tell Us Your Needs</h6>
+                <p class="text-white">Share your requirements, and a dedicated workspace advisor will handle the rest.
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12 mb-4">
+            <div class="choose_sec h-100">
+              <div class="whychos_box text-center position-relative p-4">
+                <div class="choose_icon mb-2">
+                  <app-icon name="fastService" class="w-14 text-white"></app-icon>
+                </div>
+                <h6 class="m-0">Fast & Efficient Service</h6>
+                <p class="text-white">Experience a quick turnaround time and a smooth process from search to move-in.
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12 mb-4">
+            <div class="choose_sec h-100">
+              <div class="whychos_box text-center position-relative p-4">
+                <div class="choose_icon mb-2">
+                  <app-icon name="largestCoverage" class="w-14 text-white"></app-icon>
+                </div>
+                <h6 class="m-0">Largest Coverage</h6>
+                <p class="text-white">Access 1800+ coworking spaces across India with Flexo's extensive network.</p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12 mb-4">
+            <div class="choose_sec h-100">
+              <div class="whychos_box text-center position-relative p-4">
+                <div class="choose_icon mb-2">
+                  <app-icon name="dedicatedAdvisor" class="w-14 text-white"></app-icon>
+                </div>
+                <h6 class="m-0">Dedicated Workspace Experts</h6>
+                <p class="text-white">Get personalized, support from experts for shortlisting, negotiating and
+                  finalizing your perfect office.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid our_team section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="section-title v1">Your Office Search, Simplified By Experts</h2>
+        <p style="font-size: 18px;">With over 1,000 businesses and professionals helped, we bring unmatched expertise
+          and personalized service to
+          every client.</p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-6 col-md-6 col-12 mb-4">
+        <div class="team_box position-relative px-4 py-2 bg-white">
+          <div class="team_icon position-absolute"> <app-icon name="check" class="w-4 text-orange-400"></app-icon></div>
+          <h5 class="mb-0">Space shortlisting </h5>
+          <p>We find the perfect office that suits your needs and budget.</p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12 mb-4">
+        <div class="team_box position-relative px-4 py-2 bg-white">
+          <div class="team_icon position-absolute"> <app-icon name="check" class="w-4 text-orange-400"></app-icon></div>
+          <h5 class="mb-0">Personalized Tours </h5>
+          <p>Visit spaces that match your criteria—saving you time and effort.</p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12 mb-4">
+        <div class="team_box position-relative px-4 py-2 bg-white">
+          <div class="team_icon position-absolute"> <app-icon name="check" class="w-4 text-orange-400"></app-icon></div>
+          <h5 class="mb-0">Smart Price Negotiation </h5>
+          <p>We secure the best deal, so you can focus on growing your business.</p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12 mb-4">
+        <div class="team_box position-relative px-4 py-2 bg-white">
+          <div class="team_icon position-absolute"> <app-icon name="check" class="w-4 text-orange-400"></app-icon></div>
+          <h5 class="mb-0">Seamless Contract Handling</h5>
+          <p>From paperwork to move in, we make it effortless.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="work-process pad-bot-90 section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center mb-4">
+        <h2 class="section-title v1">Trusted by Teams, <span class="main_color">Loved by Leaders</span></h2>
+      </div>
+      <!-- <div class="col-md-4">
+        <div class="work-process-content v1 text-center">
+          <div class="process-icon v1">
+            <img src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/others/1.png" alt="...">
+            <span>1</span>
+          </div>
+          <h4 class="title">Explore The City</h4>
+          <p class="info">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique iste aliquam possimus, quaerat aut
+            veritatis minima atque quam. Placeat, molestiae?
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="work-process-content v1 text-center">
+          <div class="process-icon v1">
+            <img src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/others/2.png" alt="...">
+
+            <span>2</span>
+
+          </div>
+          <h4 class="title">Find The Best Place</h4>
+          <p class="info">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique iste aliquam possimus, quaerat aut
+            veritatis minima atque quam. Placeat, molestiae?
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="work-process-content v1 text-center">
+          <div class="process-icon v1">
+            <img src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/others/3.png" alt="...">
+
+            <span>3</span>
+          </div>
+          <h4 class="title">Add Your Listing</h4>
+          <p class="info">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique iste aliquam possimus, quaerat aut
+            veritatis minima atque quam. Placeat, molestiae?
+          </p>
+        </div>
+      </div> -->
+
+      <div class="col-md-12 px-md-0">
+        <div class="swiper-container popular-place-wrap v2">
+          <div class="swiper-wrapper">
+            <ngx-slick-carousel class="carousel" #slickTestimonialModal="slick-carousel" [config]="testimonialConfig"
+              responsive="breakpoints">
+              <div ngxSlickItem class="swiper-slide popular-item slide" *ngFor="let testimonial of testimonials">
+                <div class="work-process-content v1 p-4 h-100 d-flex flex-column">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="process-icon v1" style="flex-shrink: 0;">
+                      <img loading="lazy" fetchpriority="low"
+                        [src]="'https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/' + testimonial.image"
+                        width="71" height="94" [alt]="testimonial.name" [title]="testimonial.name" />
+                      <!-- <span>{{testimonial.id}}</span> -->
+                    </div>
+                    <div class="pl-3">
+                      <h5 class="title mb-0">
+                        {{ testimonial.name }}<br /><span style="font-size: 15px">{{
+                          testimonial.designation
+                          }}</span>
+                      </h5>
+                      <span style="font-size: 12px;color: #cd854f;font-weight: bold;">{{
+                        testimonial.companyName
+                        }}</span>
+                      <ul class="product-rating text-left">
+                        <li><app-icon name="star" class="w-3 text-yellow"></app-icon></li>
+                        <li><app-icon name="star" class="w-3 text-yellow"></app-icon></li>
+                        <li><app-icon name="star" class="w-3 text-yellow"></app-icon></li>
+                        <li><app-icon name="star" class="w-3 text-yellow"></app-icon></li>
+                        <li><app-icon name="star" class="w-3 text-yellow"></app-icon></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="info">
+                    {{ testimonial.content }}
+                  </p>
+                  <div class="quote_icon position-absolute" style="opacity: 0.4;">
+                    <app-icon name="quots" class="w-9 text-orange-400"></app-icon>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 
+<div class="popular-catagory pad-bot-10" style="margin-top: 40px">
+  <div class="container">
+    <div class="row">
+      <img class="how-can-help-img web" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/how-can-flexo-web.jpg" />
+      <img class="how-can-help-img mobile" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/how-can-flexo-mobile.jpg" />
+      <div class="col-md-8 offset-md-2 text-center">
+        <h2 class="section-title v1">What is Flexo</h2>
+      </div>
+      <p style="font-size: 16px;
+      color: #3a2f2f;">Flexo transforms your favourite neighbourhood restaurants in to your workspace during office
+        hours. You get to
+        work in a beautiful ambience equipped with all the work essentials to help you be more productive and socially
+        engaged (while practicing social distancing). All our plans are visit based and pay-per-use. There is no fixed
+        monthly rental, no deposit and no lock-in period.</p>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="popular-cities section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center mb-5">
+        <h2 class="section-title v1">
+          Explore Our Popular Locations In Mumbai
+        </h2>
+      </div>
+      <div class="col-md-12">
+        <div class="swiper-container popular-place-wrap v2">
+          <div class="swiper-wrapper">
+            <ngx-slick-carousel class="carousel" #slickReviewsModal="slick-carousel" [config]="reviewsConfig"
+              responsive="breakpoints">
+              <div ngxSlickItem class="swiper-slide popular-item slide">
+                <div class="single-place">
+                  <img class="single-place-image" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/category/Andheri-East.jpg" alt="place-image" />
+                  <div class="single-place-content">
+                    <h2 class="single-place-title">
+                      <a routerLink="/in/spaces/Mumbai/Andheri-East">Andheri East</a>
+                    </h2>
+                    
+                    <ul class="single-place-list">
+                      <li><span>5</span> Cities</li>
+                      <li><span>255</span> Listing</li>
+                    </ul>
+                    <a class="btn v6 explore-place" routerLink="/in/spaces/Mumbai/Andheri-East">Explore</a>
+                  </div>
+                </div>
+              </div>
+              <div ngxSlickItem class="swiper-slide popular-item slide">
+                <div class="single-place">
+                  <img class="single-place-image" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/category/LowerParel.jpg" alt="place-image" />
+                  <div class="single-place-content">
+                    <h2 class="single-place-title">
+                      <a routerLink="/in/spaces/Mumbai/Lower-Parel">Lower Parel</a>
+                    </h2>
+                    <ul class="single-place-list">
+                      <li><span>5</span> Cities</li>
+                      <li><span>255</span> Listing</li>
+                    </ul>
+                    <a class="btn v6 explore-place" routerLink="/in/spaces/Mumbai/Lower-Parel">Explore</a>
+                  </div>
+                </div>
+              </div>
+              <div ngxSlickItem class="swiper-slide popular-item slide">
+                <div class="single-place">
+                  <img class="single-place-image" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/category/Powai.jpg" alt="place-image" />
+                  <div class="single-place-content">
+                    <h2 class="single-place-title">
+                      <a routerLink="/in/spaces/Mumbai/Powai">Powai</a>
+                    </h2>
+                    
+                    <ul class="single-place-list">
+                      <li><span>5</span> Cities</li>
+                      <li><span>255</span> Listing</li>
+                    </ul>
+                    <a class="btn v6 explore-place" routerLink="/in/spaces/Mumbai/Powai">Explore</a>
+                  </div>
+                </div>
+              </div>
+              <div ngxSlickItem class="swiper-slide popular-item slide">
+                <div class="single-place">
+                  <img class="single-place-image" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/category/Thane.jpg" alt="place-image" />
+                  <div class="single-place-content">
+                    <h2 class="single-place-title">
+                      <a routerLink="/in/spaces/Mumbai/Thane">Thane</a>
+                    </h2>
+                    
+                    <ul class="single-place-list">
+                      <li><span>5</span> Cities</li>
+                      <li><span>255</span> Listing</li>
+                    </ul>
+                    <a class="btn v6 explore-place" routerLink="/in/spaces/Mumbai/Thane">Explore</a>
+                  </div>
+                </div>
+              </div>
+              <div ngxSlickItem class="swiper-slide popular-item slide">
+                <div class="single-place">
+                  <img class="single-place-image" src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/category/BKC.jpg" alt="place-image" />
+                  <div class="single-place-content">
+                    <h2 class="single-place-title">
+                      <a routerLink="/in/spaces/Mumbai/Bandra-Kurla-Complex">Bandra Kurla Complex</a>
+                    </h2>
+                    
+                    <ul class="single-place-list">
+                      <li><span>5</span> Cities</li>
+                      <li><span>255</span> Listing</li>
+                    </ul>
+                    <a class="btn v6 explore-place" routerLink="/in/spaces/Mumbai/Bandra-Kurla-Complex">Explore</a>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+        <div class="slider-btn v1 popular-next style2" (click)="next()">
+          <i class="ion-arrow-right-c"></i>
+        </div>
+        <div class="slider-btn v1 popular-prev style2" (click)="prev()">
+          <i class="ion-arrow-left-c"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid earn_sec section-padding d-flex align-items-center justify-content-center">
+  <img fetchpriority="low" loading="lazy" class="inset-0 earn_bg_img position-absolute h-100 w-100 object-cover"
+    src="https://flexospaces-images.s3.ap-south-1.amazonaws.com/img/ready-to-move.webp" width="1526" height="400"
+    alt="Get Tailored Office Space Solutions for Your Business Needs"
+    title="Get Tailored Office Space Solutions for Your Business Needs" />
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center py-3">
+        <h2 class="text-white mb-2">Get Tailored Office Space Solutions for Your Business Needs</h2>
+        <p style="font-size: 18px;" class="text-white">Our workspace experts will get in touch to help you with your
+          requirements.</p>
+        <div class="get_btn text-center mt-4">
+          <button routerLink="/contact" type="button" class="btn custum-btn">Request Callback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid faq_sec home_faq section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="section-title v1">Frequently Asked Question</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="accordion" id="accordionExample">
+          <div class="card card_acord">
+            <div class="card-header" id="headingOne">
+              <button class="card_btn d-flex align-items-center btn w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2 mb-0">What is Flexo? </h5>
+              </button>
+            </div>
+            <div id="collapseOne" class="collapsed show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Flexo is a leading proptech marketplace and commercial real estate advisor specializing in offices,
+                  coworking spaces, managed offices and flexible spaces across India. We also offer multi-city office
+                  solutions and empower companies to implement hybrid and hub-and-spoke real estate strategies
+                  effectively.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingTwo">
+              <button class="card_btn d-flex align-items-center btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2 mb-0">How does Flexo help me find office spaces?</h5>
+              </button>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Flexo offers a curated selection of coworking spaces, managed offices, and long-term lease options.
+                  Our team provides expert guidance to find the perfect fit for your needs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingThree">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  Does Flexo have coworking spaces of its own?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <p> Currently, Flexo does not operate coworking spaces. Flexo is an aggregator platform that connects
+                  you with trusted coworking operators offering a diverse range of workspaces tailored to your needs.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingFour">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  What types of spaces are listed on Flexo?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Flexo features offices, coworking spaces, meeting rooms, virtual offices, podcast studios, photo
+                  studios, production venues, and more.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingFive">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  How does Flexo ensure the quality of its listed spaces?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Flexo verifies the listed spaces and partners with trusted operators to provide high-quality,
+                  professional environments for your needs. Additionally, users can leave reviews for spaces based on
+                  their experiences. </p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingSix">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  Does Flexo manage spaces directly?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Currently, Flexo collaborates with trusted operators who manage long-term office spaces, such as
+                  managed offices and coworking spaces. Short-term spaces like podcast studios and photo studios are
+                  listed by verified hosts, ensuring access to high-quality, well-maintained spaces. </p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingSeven">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  Can Flexo help me customize my office space?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Yes, Flexo specializes in finding fully furnished and customizable office spaces that align with your
+                  team's requirements. We can also assist with fit-outs through our qualified design and build partners
+                  to create a workspace tailored to your needs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingEight">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  How do I list my space on Flexo?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Listing your space is easy! Visit our "List Your Space" page, fill out the required details and
+                  submit your space. Your space will go live after our team reviews and approves your listing.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingNine">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  What makes Flexo different from other platforms?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>Flexo stands out by offering tailored solutions, expert guidance, and a diverse selection of office
+                  spaces, coworking spaces, and flexible short-term spaces. Our deep expertise in the commercial real
+                  estate market ensures a seamless and personalized experience for every client. </p>
+              </div>
+            </div>
+          </div>
+          <div class="card card_acord">
+            <div class="card-header" id="headingTen">
+              <button class="card_btn d-flex align-items-center  btn collapsed w-100 text-left" type="button"
+                data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                <app-icon name="rightArrow" class="w-2 text-orange-400 rotate-icon"></app-icon>
+                <h5 class="pl-2  mb-0">
+                  How do I contact Flexo for assistance?
+                </h5>
+              </button>
+            </div>
+            <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample">
+              <div class="card-body">
+                <p>You can reach out to us via email at hello&#64;flexospaces.com. Our team is here to help with all your
+                  inquiries. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid become_host section-padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center py-3">
+        <h2 class="text-white mb-2">List Your Space and Earn with Flexo</h2>
+        <p class="text-white" style="font-size: 18px;">Showcase your space, set your pricing, and start receiving leads
+          and bookings effortlessly.</p>
+        <div class="get_btn text-center mt-4">
+          <a target="_blank" href="{{hostWebUrl}}/auth/register">
+            <button type="button" class="btn custum-btn" style="border-radius: 6px;font-size: 15px;">Become a
+              host</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="location_model">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content p-0">
+        <div class="modal-header">
+          <h5 class="modal-title m-0 text-white" id="exampleModalLabel">Where is your Location?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <app-icon name="close" class="w-7"></app-icon>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12" style="align-self: center;">
+            <ng-select placeholder="What are you planning?" (change)="getVal($event)">
+              <ng-option *ngFor="let item of spaces" [value]="item.spaceType">
+                {{item?.spaceType}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
