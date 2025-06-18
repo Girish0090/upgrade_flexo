@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
  //apiUrl: 'http://localhost:3009/',
-  apiUrl: 'https://flexodemo.imgglobal.in',
+  apiUrl: 'http://13.235.251.69:5401',
   // apiUrl: 'https://apis.flexospaces.com/',
   angularUrl: `http://localhost:4200/`,
   s3_bucket_path: 'worker-app',
