@@ -27,7 +27,7 @@ export class SpaceService {
   private voteDevoteEndPoint = environment.API_URL + `/api/v1/spaces/vote`;
   
   private getSpacesByCityUrl =
-    environment.API_URL + `/api/v1/spaces/getSpacesByCity`;
+    "https://apis.flexospaces.com" + `/api/v1/spaces/getSpacesByCity`;
   private addBookingDetailsUrl =
     environment.API_URL + '/api/v1/common/addBookingAndSendInvoice';
   private checkAvailabilityUrl =
@@ -53,7 +53,7 @@ export class SpaceService {
   private urlRejectBookinonPaymentExpiry = environment.API_URL + '/api/v1/user/rejectBookingOnPaymentExpiry';
   private userBookingUrl = environment.API_URL + '/api/v1/user/cancelBooking';
 
-  getLocationUrl = environment.API_URL + '/api/v1/user/getAllLocations';
+  getLocationUrl = "https://apis.flexospaces.com" + '/api/v1/user/getAllLocations';
 	shortDetailsUrl = environment.API_URL + '/api/v1/spaces/getSpaceDetails/';
 
   getQuestionByLocationNameUrl =
